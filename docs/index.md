@@ -1,37 +1,18 @@
-## Welcome to GitHub Pages
+## R Markdown Introduction Workshop: FOWI Academy
 
-You can use the [editor on GitHub](https://github.com/humanfactors/2022-Rmarkdown-Workshop/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
+## Setup and Installation Requirements
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+- The course requires you have Rstudio and R installed on your local computer. If you need help doing this consult: https://www.youtube.com/watch?v=TFGYlKvQEQ4
+- You will also need to install a number of packages to run the exercises in this tutorial. To do so, run the following commands in R:
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```r
+packages_to_install <- c("tidyverse", "rmarkdown", "knitr", "kableExtra", "qwraps2", "apa", "skimr")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+## Download Course Materials
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/humanfactors/2022-Rmarkdown-Workshop/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+- You will need to download the course materials from this site
+- Download the Code as a Zip file and extract. 
+- Then you need to open the `rmarkdown-workshop.Rproj` in Rstudio.

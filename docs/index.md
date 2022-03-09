@@ -14,9 +14,9 @@
 
 It is absolutely essential you have the following:
 
-**Rstudio and R installed** on your local computer. If you need help doing this consult: [https://www.youtube.com/watch?v=TFGYlKvQEQ4]()
+**Rstudio and R installed** on your local computer. If you need help doing this consult: [https://www.youtube.com/watch?v=TFGYlKvQEQ4](). Please try to have R version 4.0.0 (April, 2020) or later. This can be checked in R with the command `print(R.version$version.string)`
 
-**Course Materials Downloaded**: You will need to download the course materials from this site. Download the zip file, extract, and open the `rmarkdown-workshop.Rproj` in Rstudio. The course materials can be downloaded below, or via [this URL](https://github.com/humanfactors/2022-Rmarkdown-Workshop/archive/refs/heads/master.zip).
+**Course Materials Downloaded**: You will need to download the course materials from this site *during* the workshop. Download the zip file, extract, and open the `rmarkdown-workshop.Rproj` in Rstudio. The course materials can be downloaded below, or via [this URL](https://github.com/humanfactors/2022-Rmarkdown-Workshop/archive/refs/heads/master.zip).
 
 <!-- Place this tag where you want the button to render. -->
 <a class="github-button" href="https://github.com/humanfactors/2022-Rmarkdown-Workshop/archive/refs/heads/master.zip" data-color-scheme="no-preference: dark_dimmed; light: light; dark: dark;" data-icon="octicon-download" data-size="large" aria-label="Download ntkme/github-buttons on GitHub">Download Course Materials</a>
@@ -30,6 +30,10 @@ packages_to_install <- c("tidyverse", "rmarkdown", "knitr", "kableExtra", "qwrap
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 ```
+
+## Health and Safety
+
+Please refer to Curtin’s information about attending campus: https://www.curtin.edu.au/novel-coronavirus/
 
 
 <!-- Place this tag in your head or just before your close body tag. -->

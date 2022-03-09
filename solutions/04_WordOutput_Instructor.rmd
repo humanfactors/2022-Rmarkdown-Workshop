@@ -4,11 +4,63 @@ author: "An Aspiring R Markdown User"
 date: "08/03/2022"
 output:
   word_document:
-    reference_docx: assets/apa.docx
+    reference_docx: ../assets/apa.docx
 ---
 
-# Title of Document
+# More Complex Data Analysis
 
-In this instance, the user can export the document as a Word document. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse) # defaults
+library(knitr) # for kable function
+library(qwraps2) # for in-text means example
+library(skimr) # for summary statistics
+library(apa) # for t_apa function
 
 
+# This is just setting up the data
+chopstick_data = read.csv("./data/chopstickdata.csv") %>% 
+  relocate(Subject, ChopstickLength, FoodPinchingEff) %>% 
+  mutate(ChopstickLength = as.factor(ChopstickLength), 
+         Subject = as.factor(Subject)) %>% 
+  arrange(ChopstickLength, Subject)
+
+# And getting our demographics information
+demogr = read.csv("./data/demographics.csv")
+
+# Ignore until later in lesson
+# demogr = read.csv("../data/demographics.csv") %>% filter(subjectid < 24)
+
+```
+
+```{r}
+# This just lays out the t-tests etc for reporting example only.
+chopstick_data_wide = chopstick_data %>% 
+  pivot_wider(id_cols = Subject, values_from = FoodPinchingEff, names_from = ChopstickLength)
+
+ttest180 <- t.test(chopstick_data_wide$`240`, chopstick_data_wide$`180`, paired=T)
+ttest0 <- t.test(chopstick_data_wide$`240`, chopstick_data_wide$`210`, paired=T)
+ttest1 <- t.test(chopstick_data_wide$`240`, chopstick_data_wide$`270`, paired=T)
+ttest2 <- t.test(chopstick_data_wide$`240`, chopstick_data_wide$`300`, paired=T)
+ttest3 <- t.test(chopstick_data_wide$`240`, chopstick_data_wide$`330`, paired=T)
+```
+
+
+The 240mm was associated with a signficantly higher Food Pinching Efficiency than 
+the 180mm, `r t_apa(ttest180, es = "cohens_d", format = "markdown", print = FALSE)`; 
+the 270mm `r t_apa(ttest1, es = "cohens_d", format = "markdown", print = FALSE)`; 
+the 300mm `r t_apa(ttest2, es = "cohens_d", format = "markdown", print = FALSE)`; 
+and the 330mm `r t_apa(ttest3, es = "cohens_d", format = "markdown", print = FALSE)`. 
+However, there was no difference in Food Pinching Efficiency between 
+the 210mm and 240mm, `r t_apa(ttest0, es = "cohens_d", format = "markdown", print = FALSE)`.
+
+# Plotting
+
+```{r}
+ggplot(data = chopstick_data, aes(ChopstickLength,FoodPinchingEff)) +
+  geom_boxplot(aes(color=ChopstickLength)) + 
+  theme(legend.title=element_blank()) + 
+  geom_jitter(width = 0.2, alpha=0.2)
+
+```

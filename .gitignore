@@ -39,3 +39,4 @@ vignettes/*.pdf
 .Renviron
 
 solutions/*.html
+instructor_examples/parameterised_reports/outputs/*.html

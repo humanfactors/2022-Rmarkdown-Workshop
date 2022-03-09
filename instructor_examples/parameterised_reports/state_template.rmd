@@ -1,0 +1,42 @@
+---
+output: html_document
+params:
+  state_dat: NULL
+highlight: null
+mathjax: null
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen=999)
+
+state_name = params$state_dat$State
+state_l = params$state_dat
+
+state_name_url = stringr::str_replace_all(state_name, " ", "_")
+
+if (state_name == "Victoria") {
+  state_name_url = paste0(state_name_url,"_(Australia)")
+}
+
+flag_url = paste0("https://commons.wikimedia.org/wiki/Special:FilePath/File:Flag_of_",
+                  state_name_url,
+                  ".svg")
+
+
+
+```
+
+The Australian state `r state_name` has a population of `r state_l$Population`
+and an area of `r state_l$Area`. This is roughly `r round(state_l$Population / state_l$Area,2)` people per square km. 
+
+The capital of the `r state_name` is `r state_l$Capital`.
+
+The Premier of `r state_name` is currently `r state_l$Premier` `r state_l$Party` — the Governer is `r state_l$Governor`. The state is represented by `r state_l$Seats_Reps` seats in the house of Representatives.
+
+_The flag of `r state_name`_
+`r sprintf("![](%s)", flag_url)`
+
+---
+title: "An Introduction to `r state_name`"
+---

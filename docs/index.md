@@ -4,7 +4,7 @@
 
 
 > RMarkdown is a tool for building dynamic documents in the R Programming Language. It enables you to connect the output from statistical analyses directly into documents like Microsoft Word, PDFs, websites, or presentations. Rmarkdown has many uses, including: automating your results-section writeup, building easily updatable webpages of analyses for stakeholders, and even simplifying the process of building websites or typesetting professional-looking books! 
-
+>   
 > This session is targeted at beginners and will introduce you to the basics of Rmarkdown and its different applications (incl. reproducibility and literate programming) using interactive exercises and a “follow along” tutorial. Time will be dedicated to questions and extended demonstrations.
 
 

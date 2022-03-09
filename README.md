@@ -8,7 +8,7 @@ Repository for my 2022 R markdown Workshop.
 - You will also need to install a number of packages to run the exercises in this tutorial. To do so, run the following commands in R:
 
 ```r
-packages_to_install <- c("tidyverse", "rmarkdown", "knitr", "kableExtra", "qwraps2", "apa", "skimr")
+list.of.packages <- c("tidyverse", "rmarkdown", "knitr", "kableExtra", "qwraps2", "apa", "skimr")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 ```
@@ -28,3 +28,4 @@ if(length(new.packages)) install.packages(new.packages)
 - [ ] **Activity 03** — Full walkthrough of Chopsticks example.
 - [ ] **Activity 04** — Word export feature
 
+# D

@@ -1,0 +1,14 @@
+---
+title: "An Example of using Word export in R Markdown"
+author: "An Aspiring R Markdown User"
+date: "08/03/2022"
+output:
+  word_document:
+    reference_docx: assets/apa.docx
+---
+
+# Title of Document
+
+In this instance, the user can export the document as a Word document. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+

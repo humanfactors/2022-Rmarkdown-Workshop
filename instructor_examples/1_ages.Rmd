@@ -1,0 +1,19 @@
+---
+title: "Experimental Means"
+author: "Michael Wilson"
+date: "14 November 2017"
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+ages <- rnorm(50, 20, 2)
+scores <- rnorm(50, 75, 25)
+```
+
+
+_2+2_ is equal to `r 2+2`  
+Average age was `r mean(ages)`  
+Maximum score was `r max(scores)`  

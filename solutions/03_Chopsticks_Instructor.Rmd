@@ -1,0 +1,135 @@
+---
+title: "02_ChopstickAnalysis"
+author: "Michael Wilson"
+date: "08/03/2022"
+output: 
+  html_document: 
+    number_sections: yes
+---
+
+# Our Example: Chopstick Length
+What is the optimum length of chopsticks usable by adults? We will be using the "optimum length of chopsticks" data set where researchers set out to determine the optimal length of chopsticks for children and adults. They came up with a measure of how effective a pair of chopsticks performed, called the "Food Pinching Performance." The "Food Pinching Performance" was determined by counting the number of peanuts picked and placed in a cup (PPPC). As this is fake data, assume that the measure represents the weight in grams of peanuts moved.
+
+## Setup
+
+I normally like to specify all my code that "sets things up" in a setup chunk as per below
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse) # defaults
+library(knitr) # for kable function
+library(qwraps2) # for in-text means example
+library(skimr) # for summary statistics
+library(apa) # for t_apa function
+
+
+# This is just setting up the data
+chopstick_data = read.csv("./data/chopstickdata.csv") %>% 
+  relocate(Subject, ChopstickLength, FoodPinchingEff) %>% 
+  mutate(ChopstickLength = as.factor(ChopstickLength), 
+         Subject = as.factor(Subject)) %>% 
+  arrange(ChopstickLength, Subject)
+
+# And getting our demographics information
+demogr = read.csv("./data/demographics.csv")
+
+# Ignore until later in lesson
+# demogr = read.csv("../data/demographics.csv") %>% filter(subjectid < 24)
+
+```
+
+## Descriptives
+
+There are a number of different ways to generate summary descriptives, we will look at a subset of these below.
+
+```{r skimr, echo=FALSE, skimr_include_summary=FALSE}
+skim_summary = chopstick_data %>% 
+  group_by(ChopstickLength) %>% 
+  skimr::skim(-Subject) 
+
+skim_summary
+
+```
+
+## In-text descriptions
+
+We also sometimes need to produce in-text descriptions of variables that we might want to copy and paste. Let's first try some simple manual ones, then we will increase the automation as we go forward.
+
+In our chopstick study the median age of participants was `r median(demogr$age)`, with `r sum(demogr$gender == "f")` people who identify as female, and `r sum(demogr$gender == "m")` people who identify as male.
+
+These kind of outputs are totally fine if you are only interested in basic text. However, more sophisticated formats can be made easier by automating their generation with a package or function.
+
+In our chopstick study the median age of participants was `r qwraps2::mean_sd(demogr$age)`, with `r qwraps2::n_perc(demogr$gender == "f")` people who identify as female, and `r qwraps2::n_perc(demogr$gender == "m")` people who identify as male.
+
+Note this package also automates things like the 95% confidence intervals, say for the mean in a condition. However, sometimes it is far easier to setup all the details required outside of the inline code.
+
+```{r include=FALSE}
+chopstick_data_180 = filter(chopstick_data, ChopstickLength == 180)$FoodPinchingEff
+mean_ci_180 = qwraps2::mean_ci(chopstick_data_180, show_level = TRUE)
+```
+
+For the 180mm condition, the average PPPC was `r frmtci(mean_ci_180, show_level = T)`.
+
+# Plotting
+
+```{r}
+ggplot(data = chopstick_data, aes(ChopstickLength,FoodPinchingEff)) +
+  geom_boxplot(aes(color=ChopstickLength)) + 
+  theme(legend.title=element_blank()) + 
+  geom_jitter(width = 0.2, alpha=0.2)
+
+```
+
+
+# More Complex Data Analysis
+
+```{r}
+# This just lays out the t-tests etc for reporting example only.
+chopstick_data_wide = chopstick_data %>% 
+  pivot_wider(id_cols = Subject, values_from = FoodPinchingEff, names_from = ChopstickLength)
+
+ttest180 <- t.test(chopstick_data_wide$`240`, chopstick_data_wide$`180`, paired=T)
+ttest0 <- t.test(chopstick_data_wide$`240`, chopstick_data_wide$`210`, paired=T)
+ttest1 <- t.test(chopstick_data_wide$`240`, chopstick_data_wide$`270`, paired=T)
+ttest2 <- t.test(chopstick_data_wide$`240`, chopstick_data_wide$`300`, paired=T)
+ttest3 <- t.test(chopstick_data_wide$`240`, chopstick_data_wide$`330`, paired=T)
+```
+
+
+The 240mm was associated with a signficantly higher Food Pinching Efficiency than 
+the 180mm, `r t_apa(ttest180, es = "cohens_d", format = "markdown", print = FALSE)`; 
+the 270mm `r t_apa(ttest1, es = "cohens_d", format = "markdown", print = FALSE)`; 
+the 300mm `r t_apa(ttest2, es = "cohens_d", format = "markdown", print = FALSE)`; 
+and the 330mm `r t_apa(ttest3, es = "cohens_d", format = "markdown", print = FALSE)`. 
+However, there was no difference in Food Pinching Efficiency between 
+the 210mm and 240mm, `r t_apa(ttest0, es = "cohens_d", format = "markdown", print = FALSE)`.
+
+
+# Including Complex Tables
+
+
+```{r}
+# Note do not load kableExtra into Namespace: https://github.com/ropensci/skimr/issues/637
+manual_summary = chopstick_data %>%
+  group_by(ChopstickLength) %>%
+  summarize(Mean = mean(FoodPinchingEff), SD = sd(FoodPinchingEff), Median = median(FoodPinchingEff))  %>% kableExtra::kbl() %>%
+  kableExtra::kable_classic_2(full_width = F)
+
+manual_summary
+```
+
+
+
+# Advance (students do not run)
+
+```{r, eval=F}
+library(afex)
+library(emmeans)
+
+omnibus = afex::aov_4(FoodPinchingEff ~ 1 + (ChopstickLength|Subject), data = chopstick_data, check_contrasts = T)
+afex:::nice(omnibus, intercept = T, MSE = T)
+
+emi = emmeans(omnibus, ~ChopstickLength)
+contrast(emi, "trt.vs.ctrl", ref = 3, adjust = "holm")
+```

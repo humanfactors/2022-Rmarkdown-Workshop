@@ -1,0 +1,24 @@
+---
+title: "Misc Tips"
+output: html_notebook
+---
+
+In some cases, it can be easier to just copy and paste outputs from web-browsers rather than have everything knitted together.
+This is no problem for R.
+
+```{r main}
+library(tidyverse)
+library(lme4)
+library(sjPlot)
+
+chopstick_data = read.csv("../data/chopstickdata.csv") %>% 
+  relocate(Subject, ChopstickLength, FoodPinchingEff) %>% 
+  mutate(ChopstickLength = as.factor(ChopstickLength),
+         Subject = as.factor(Subject)) %>% 
+  arrange(ChopstickLength, Subject)
+
+
+lme4mod = lme4::lmer(FoodPinchingEff ~ 1 + ChopstickLength + (1|Subject), data = chopstick_data)
+sjPlot::tab_model(lme4mod)
+```
+

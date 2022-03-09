@@ -1,0 +1,37 @@
+---
+title: "Analysis of Optimal Chopstick Length"
+author: "Type your name here"
+date: "08/03/2022"
+output: 
+  html_document: 
+    number_sections: yes
+---
+
+# Our Example: Chopstick Length
+
+What is the optimum length of chopsticks usable by adults? We will be using the "optimum length of chopsticks" data set where researchers set out to determine the optimal length of chopsticks for children and adults. They came up with a measure of how effective a pair of chopsticks performed, called the "Food Pinching Performance." The "Food Pinching Performance" was determined by counting the number of peanuts picked and placed in a cup (PPPC). As this is fake data, assume that the measure represents the weight in grams of peanuts moved.
+
+## Setup
+
+I normally like to specify all my code that "sets things up" in a setup chunk as per below.
+
+```{r setup, include=FALSE}
+library(tidyverse) # defaults
+library(knitr) # for kable function
+library(qwraps2) # for in-text means example
+library(skimr) # for summary statistics
+library(apa) # for t_apa function
+
+# This is just setting up the data
+chopstick_data = read.csv("./data/chopstickdata.csv") %>% 
+  relocate(Subject, ChopstickLength, FoodPinchingEff) %>% 
+  mutate(ChopstickLength = as.factor(ChopstickLength),
+         Subject = as.factor(Subject)) %>% 
+  arrange(ChopstickLength, Subject)
+
+# And getting our demographics information
+demogr = read.csv("./data/demographics.csv")
+```
+
+## Descriptives
+

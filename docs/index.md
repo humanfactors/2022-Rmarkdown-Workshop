@@ -4,7 +4,7 @@
 
 
 > RMarkdown is a tool for building dynamic documents in the R Programming Language. It enables you to connect the output from statistical analyses directly into documents like Microsoft Word, PDFs, websites, or presentations. Rmarkdown has many uses, including: automating your results-section writeup, building easily updatable webpages of analyses for stakeholders, and even simplifying the process of building websites or typesetting professional-looking books! 
-
+>   
 > This session is targeted at beginners and will introduce you to the basics of Rmarkdown and its different applications (incl. reproducibility and literate programming) using interactive exercises and a “follow along” tutorial. Time will be dedicated to questions and extended demonstrations.
 
 
@@ -22,7 +22,7 @@ It is absolutely essential you have the following:
 <a class="github-button" href="https://github.com/humanfactors/2022-Rmarkdown-Workshop/archive/refs/heads/master.zip" data-color-scheme="no-preference: dark_dimmed; light: light; dark: dark;" data-icon="octicon-download" data-size="large" aria-label="Download ntkme/github-buttons on GitHub">Download Course Materials</a>
 
 
-**Required packages for course**. You will also need to install a number of packages to run the exercises in this tutorial. To do so, run the following commands in R:
+**3) Required packages for course**. You will also need to install a number of packages to run the exercises in this tutorial. To do so, run the following commands in R:
 
 ```r
 # This code is also contained the the check_environment.R file in your course materials. You can run from there.

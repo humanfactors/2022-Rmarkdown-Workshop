@@ -11,7 +11,9 @@ library(tidyverse)
 library(lme4)
 library(sjPlot)
 
-chopstick_data = read.csv("../data/chopstickdata.csv") %>% 
+knitr::opts_knit$set(root.dir = rstudioapi::getActiveProject())
+
+chopstick_data = read.csv("./data/chopstickdata.csv") %>% 
   relocate(Subject, ChopstickLength, FoodPinchingEff) %>% 
   mutate(ChopstickLength = as.factor(ChopstickLength),
          Subject = as.factor(Subject)) %>% 

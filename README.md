@@ -27,5 +27,3 @@ if(length(new.packages)) install.packages(new.packages)
 - [ ] **Activity 02** — Basic R Markdown Syntax
 - [ ] **Activity 03** — Full walkthrough of Chopsticks example.
 - [ ] **Activity 04** — Word export feature
-
-# D

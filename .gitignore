@@ -40,3 +40,4 @@ vignettes/*.pdf
 
 solutions/*.html
 instructor_examples/parameterised_reports/outputs/*.html
+solutions/03_Ignore_PracticeOnly.rmd
